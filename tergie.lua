@@ -14,7 +14,7 @@ local function RunBot()
         local JoinTime = tick()
         coroutine.wrap(function()
             local MinimumPlayersInGame = 7
-            local MinsLast = .05
+            local MinsLast = 8
             while true do
                 task.wait(MinsLast * 60)
                 if raisedTemp == 0 or #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) then
