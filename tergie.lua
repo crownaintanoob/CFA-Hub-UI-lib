@@ -8,9 +8,7 @@ local function RunBot()
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
         local Players = game:GetService("Players")
         local localP = Players.LocalPlayer
-        print("ergre")
         repeat task.wait(.1) until localP and localP.Character and localP.Character:IsDescendantOf(workspace)
-        print("rgergh")
         task.wait(2)
         local raisedTemp = 0
         local JoinTime = tick()
