@@ -415,7 +415,7 @@ local function RunBot()
                         end
                         -- Give some time for the bot to "type" like a human
                         task.wait(5)
-                        SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ? Even 5 robux is enough...")
+                        SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ?")
                         local StartingTimeWait1 = tick()
                         local CanStopLoop1 = false
                         repeat
@@ -431,7 +431,7 @@ local function RunBot()
                                     end
                                 end
                             end
-                        until CanStopLoop1 or (tick() - StartingTimeWait1) >= 30 or not Players:FindFirstChild(plrToReach.Name)
+                        until CanStopLoop1 or (tick() - StartingTimeWait1) >= 15 or not Players:FindFirstChild(plrToReach.Name)
                         SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMyStand"][math.random(1, #BegMessagesList["FollowMeToMyStand"])])
                         local boothGet = GetBooth()
                         if boothGet ~= nil and boothGet["HasBooth"] then
