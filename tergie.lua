@@ -22,7 +22,7 @@ local function RunBot()
                     print("Server Hopping!")
                     raisedTemp = 0
                     --queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhopPlsDonate.lua"))()
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
                 else
                     raisedTemp = 0
                 end
