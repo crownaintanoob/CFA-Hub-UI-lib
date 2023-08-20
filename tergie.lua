@@ -403,7 +403,7 @@ local function RunBot()
                                             local boothGet = GetBooth()
                                             if boothGet ~= nil and boothGet["HasBooth"] then
                                                 if boothGet["BoothPart"] then
-                                                    repeat task.wait(.1) until (tick() - startWaitingTime) >= 40 or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position -  boothGet["BoothPart"].Position).Magnitude >= 150 or not Players:FindFirstChild(plrToReach.Name)
+                                                    repeat task.wait(.1) until (tick() - startWaitingTime) >= 40 or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude >= 150 or not Players:FindFirstChild(plrToReach.Name)
                                                 end
                                             end
                                             ShouldSkipFunc = true
@@ -462,31 +462,36 @@ local function RunBot()
                         end
                         -- Give some time for the bot to "type" like a human
                         task.wait(5)
-                        SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ?")
-                        local StartingTimeWait1 = tick()
-                        local CanStopLoop1 = false
-                        repeat
-                            task.wait(.1)
-                            if ChattedPlrsFuncList[plrToReach.UserId] ~= nil then
-                                for _, vObjectMessages in pairs(ChattedPlrsFuncList[plrToReach.UserId]) do
-                                    for _, msgGot in pairs(WhitelistedAgreeMessages) do
-                                        if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
-                                            print("Player agreed to go to your stand !")
-                                            CanStopLoop1 = true -- Cancel the repeat until loop ListDeclineMessages
-                                            break
+                        if Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 75 then
+                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ?")
+                            local StartingTimeWait1 = tick()
+                            local CanStopLoop1 = false
+                            repeat
+                                task.wait(.1)
+                                if ChattedPlrsFuncList[plrToReach.UserId] ~= nil then
+                                    for _, vObjectMessages in pairs(ChattedPlrsFuncList[plrToReach.UserId]) do
+                                        for _, msgGot in pairs(WhitelistedAgreeMessages) do
+                                            if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
+                                                print("Player agreed to go to your stand !")
+                                                CanStopLoop1 = true -- Cancel the repeat until loop ListDeclineMessages
+                                                break
+                                            end
                                         end
                                     end
                                 end
+                            until CanStopLoop1 or (tick() - StartingTimeWait1) >= 15 or not Players:FindFirstChild(plrToReach.Name) or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 75
+                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMyStand"][math.random(1, #BegMessagesList["FollowMeToMyStand"])])
+                            local boothGet = GetBooth()
+                            if boothGet ~= nil and boothGet["HasBooth"] then
+                                if boothGet["BoothPart"] then
+                                    MoveToDestinationAI(boothGet["BoothPart"].Position, plrToReach, 2)
+                                    -- Waits a bit before going away, so that the user can perhaps donate
+                                    task.wait(3)
+                                end
                             end
-                        until CanStopLoop1 or (tick() - StartingTimeWait1) >= 15 or not Players:FindFirstChild(plrToReach.Name)
-                        SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMyStand"][math.random(1, #BegMessagesList["FollowMeToMyStand"])])
-                        local boothGet = GetBooth()
-                        if boothGet ~= nil and boothGet["HasBooth"] then
-                            if boothGet["BoothPart"] then
-                                MoveToDestinationAI(boothGet["BoothPart"].Position, plrToReach, 2)
-                                -- Waits a bit before going away, so that the user can perhaps donate
-                                task.wait(3)
-                            end
+                        else
+                            ShouldSkipFunc = true
+                            return
                         end
                     end
                 end
