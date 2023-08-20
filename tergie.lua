@@ -41,6 +41,17 @@ local function RunBot()
             SpeedUpPlayer(char)
         end)
 
+        local function SendMessageInChat(message : string)
+            ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(--[[Message]]message, --[[Recipient(s)]]"All")
+        end
+
+        local donationsThanksList = {
+            "Thank you so much for the donation!",
+            "Thanks for the dono",
+            "Thank u for the dono bro",
+            "Thanks for the donation",
+        }
+
         local oldDonation = localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value
         localP:WaitForChild("leaderstats"):WaitForChild("Raised").Changed:Connect(function(newValue)
             local HowMuchDonatedAtOnce = newValue - oldDonation
@@ -173,10 +184,6 @@ local function RunBot()
                 EmptyBoothFoundRandom["HasBooth"] = false
                 return EmptyBoothFoundRandom
             end
-        end
-
-        local function SendMessageInChat(message : string)
-            ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest"):FireServer(--[[Message]]message, --[[Recipient(s)]]"All")
         end
 
         local ChattedPlrsFuncList = {}
