@@ -340,7 +340,7 @@ local function RunBot()
                                     localP.Character and localP.Character:IsDescendantOf(workspace) and
                                         (localP.Character:WaitForChild("HumanoidRootPart").Position - waypoints[i].Position).Magnitude <=
                                             7 or
-                                    SkippedAmount >= (6 * 10)
+                                    SkippedAmount >= (2 * 10)
                                 if
                                     idMode == 1 and plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
                                         (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - destination).Magnitude >=
@@ -352,7 +352,7 @@ local function RunBot()
                                 if boothGet ~= nil and boothGet["HasBooth"] then
                                     if boothGet["BoothPart"] then
                                         if plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
-                                        (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude <= 40 then
+                                        (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude <= 30 then
                                             if localP.Character and localP.Character:IsDescendantOf(workspace) then
                                                 -- Cancel Humanoid MoveTo
                                                 humanoid:MoveTo(localP.Character:WaitForChild("HumanoidRootPart").Position)
