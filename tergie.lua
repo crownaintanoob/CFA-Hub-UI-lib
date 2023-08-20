@@ -268,6 +268,7 @@ local function RunBot()
         local RunService = game:GetService("RunService")
         local CurrentFailureHaveGoBack = 0
         local ShouldSkipFunc = false
+        local latestFailureTime = 0
         local function MoveToDestinationAI(destination, plrToReach, idMode)
             local path = PathfindingService:CreatePath()
             if localP.Character and localP.Character:IsDescendantOf(workspace) then
@@ -402,7 +403,7 @@ local function RunBot()
                                     end
                                     task.wait(3)
                                     if localP.Character and localP.Character:IsDescendantOf(workspace) and plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
-                                    (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 40 then
+                                    (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 150 then
                                         ShouldSkipFunc = true
                                         break
                                     end
@@ -425,7 +426,8 @@ local function RunBot()
                                 end
                                 if idMode == 2 and localP.Character and localP.Character:IsDescendantOf(workspace) and plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
                                 (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >=
-                                    65 then
+                                    65 and (tick() - latestFailureTime) >= 4 then
+                                        latestFailureTime = tick()
                                         print(CurrentFailureHaveGoBack, "ADDED CurrentFailureHaveGoBack")
                                         CurrentFailureHaveGoBack = CurrentFailureHaveGoBack + 1
                                         local moveToDestination = MoveToDestinationAI(plrToReach.Character:WaitForChild("HumanoidRootPart").Position, plrToReach, 2)
