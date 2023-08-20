@@ -45,7 +45,7 @@ local function RunBot()
         localP:WaitForChild("leaderstats"):WaitForChild("Raised").Changed:Connect(function(newValue)
             local HowMuchDonatedAtOnce = newValue - oldDonation
             oldDonation = newValue
-            task.wait(2)
+            task.wait(4)
             SendMessageInChat("Thanks for the donation!")
             raisedTemp = raisedTemp + HowMuchDonatedAtOnce
         end)
