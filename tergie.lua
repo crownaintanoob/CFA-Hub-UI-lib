@@ -394,6 +394,7 @@ local function RunBot()
                                             7 or
                                     SkippedAmount >= (2 * 10)
                                 if PlayerDeclined then
+                                    task.wait(2)
                                     ShouldSkipFunc = true
                                     break
                                 end
@@ -419,7 +420,7 @@ local function RunBot()
                                             local boothGet = GetBooth()
                                             if boothGet ~= nil and boothGet["HasBooth"] then
                                                 if boothGet["BoothPart"] then
-                                                    repeat task.wait(.1) until (tick() - startWaitingTime) >= 40 or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude >= 150 or not Players:FindFirstChild(plrToReach.Name)
+                                                    repeat task.wait(.1) until (tick() - startWaitingTime) >= 40 or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude >= 80 or not Players:FindFirstChild(plrToReach.Name)
                                                 end
                                             end
                                             ShouldSkipFunc = true
@@ -489,13 +490,21 @@ local function RunBot()
                                         for _, msgGot in pairs(WhitelistedAgreeMessages) do
                                             if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
                                                 print("Player agreed to go to your stand !")
-                                                CanStopLoop1 = true -- Cancel the repeat until loop ListDeclineMessages
+                                                CanStopLoop1 = true
                                                 break
                                             end
                                         end
                                     end
                                 end
                             until CanStopLoop1 or (tick() - StartingTimeWait1) >= 15 or not Players:FindFirstChild(plrToReach.Name) or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 75
+                            if not Players:FindFirstChild(plrToReach.Name) or Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 75 then
+                                ShouldSkipFunc = true
+                                return
+                            end
+                            if CanStopLoop1 then
+                                -- Player has agreed to come to your stand, so waiting 3 seconds
+                                task.wait(3)
+                            end
                             SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMyStand"][math.random(1, #BegMessagesList["FollowMeToMyStand"])])
                             local boothGet = GetBooth()
                             if boothGet ~= nil and boothGet["HasBooth"] then
