@@ -21,13 +21,34 @@ local function RunBot()
                     -- Server Hop
                     print("Server Hopping!")
                     raisedTemp = 0
-                    queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
+                    --queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhopPlsDonate.lua"))()
                 else
                     raisedTemp = 0
                 end
             end
         end)()
+        local function SpeedUpPlayer(char)
+            char:WaitForChild("Humanoid").WalkSpeed = 20
+        end
+
+        if localP.Character and localP.Character:IsDescendantOf(workspace) then
+            SpeedUpPlayer(localP.Character)
+        end
+
+        localP.CharacterAdded:Connect(function(char)
+            repeat task.wait() until char
+            SpeedUpPlayer(char)
+        end)
+
+        local oldDonation = localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value
+        localP:WaitForChild("leaderstats"):WaitForChild("Raised").Changed:Connect(function(newValue)
+            local HowMuchDonatedAtOnce = newValue - oldDonation
+            oldDonation = newValue
+            task.wait(2)
+            SendMessageInChat("Thanks for the donation!")
+            raisedTemp = raisedTemp + HowMuchDonatedAtOnce
+        end)
         -- Anti AFK
         local VirtualUser = game:GetService("VirtualUser")
         localP.Idled:Connect(
@@ -518,28 +539,6 @@ local function RunBot()
                 end
             end
         )
-
-        local function SpeedUpPlayer(char)
-            char:WaitForChild("Humanoid").WalkSpeed = 20
-        end
-
-        if localP.Character and localP.Character:IsDescendantOf(workspace) then
-            SpeedUpPlayer(localP.Character)
-        end
-
-        localP.CharacterAdded:Connect(function(char)
-            repeat task.wait() until char
-            SpeedUpPlayer(char)
-        end)
-
-        local oldDonation = localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value
-        localP:WaitForChild("leaderstats"):WaitForChild("Raised").Changed:Connect(function(newValue)
-            local HowMuchDonatedAtOnce = newValue - oldDonation
-            oldDonation = newValue
-            task.wait(2)
-            SendMessageInChat("Thanks for the donation!")
-            raisedTemp = raisedTemp + HowMuchDonatedAtOnce
-        end)
     else
         warn("Alreadry executed the Crown Bot!")
     end
