@@ -561,8 +561,10 @@ local function RunBot()
                             plrRandom = PlayersList[math.random(1, #PlayersList)]
                         end
                         if plrRandom.Character and plrRandom.Character:IsDescendantOf(workspace) and LastPersonAskedMessage ~= plrRandom then
-                            LastPersonAskedMessage = plrRandom
-                            MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                            if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 250 then
+                                LastPersonAskedMessage = plrRandom
+                                MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                            end
                         end
                     end
                 end
