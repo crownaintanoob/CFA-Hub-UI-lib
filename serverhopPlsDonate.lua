@@ -61,7 +61,7 @@ for i, v in pairs(game:GetService("Players"):GetPlayers()) do
         highestplr = v
     end
 end
-
+--[[
 if highestdono >= minimum then
     local richPlayers = {}
     for i, v in pairs(game:GetService("Players"):GetPlayers()) do
@@ -87,5 +87,6 @@ if highestdono >= minimum then
         end
     )
 else
+    --]]
     shop()
 end
