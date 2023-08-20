@@ -34,7 +34,7 @@ local function shop() -- infinite yield serverhop
     for _, v in ipairs(
         game:GetService("HttpService"):JSONDecode(
             game:HttpGetAsync(
-                "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+                "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100"
             )
         ).data
     ) do
