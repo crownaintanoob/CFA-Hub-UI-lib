@@ -32,7 +32,6 @@ function Search()
                 table.insert(GUIDs, {id = v.id, users = v.playing})
             end
         end
-        print("Searched! i=", i)
         if Http.nextPageCursor ~= null then
             Http =
                 game:GetService("HttpService"):JSONDecode(
