@@ -366,7 +366,7 @@ local function RunBot()
                                         (localP.Character:WaitForChild("HumanoidRootPart").Position - waypoints[i].Position).Magnitude <=
                                             7 or
                                     SkippedAmount >= (2 * 10)
-                                if not PlayerDeclined then
+                                if PlayerDeclined then
                                     ShouldSkipFunc = true
                                     break
                                 end
