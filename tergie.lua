@@ -8,7 +8,9 @@ local function RunBot()
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
         local Players = game:GetService("Players")
         local localP = Players.LocalPlayer
+        print("ergre")
         repeat task.wait(.1) until localP and localP.Character and localP.Character:IsDescendantOf(workspace)
+        print("rgergh")
         task.wait(2)
         local raisedTemp = 0
         local JoinTime = tick()
@@ -28,6 +30,21 @@ local function RunBot()
                 end
             end
         end)()
+        local PlayersBeginningPos = {}
+        
+        local function BeginPlayerPos(plr)
+            coroutine.wrap(function()
+                plr.CharacterAdded:Connect(function(char)
+                    repeat task.wait() until char
+                    task.wait(3)
+                    PlayersBeginningPos[plr.UserId] = char:WaitForChild("HumanoidRootPart").Position
+                end)
+                if Players:FindFirstChild(plr.Name) and plr.Character and plr.Character:IsDescendantOf(workspace) then
+                    PlayersBeginningPos[plr.UserId] = plr.Character:WaitForChild("HumanoidRootPart").Position
+                end
+            end)()
+        end
+
         local function SpeedUpPlayer(char)
             char:WaitForChild("Humanoid").WalkSpeed = 20
         end
@@ -205,12 +222,14 @@ local function RunBot()
         end
 
         for _, plrGotTemp in pairs(Players:GetPlayers()) do
+            BeginPlayerPos(plrGotTemp)
             plrGotTemp.Chatted:Connect(function(msg)
                 chattedFunc(plrGotTemp, msg)
             end)
         end
 
         Players.PlayerAdded:Connect(function(plrGot)
+            BeginPlayerPos(plrGot)
             plrGot.Chatted:Connect(function(msg)
                 chattedFunc(plrGot, msg)
             end)
@@ -434,7 +453,7 @@ local function RunBot()
                                                 break
                                             else
                                                 -- Waits a bit before going away, so that the user can perhaps donate
-                                                task.wait(3)
+                                                task.wait(8)
                                             end
                                         end
                                     end
@@ -485,7 +504,7 @@ local function RunBot()
                                 if boothGet["BoothPart"] then
                                     MoveToDestinationAI(boothGet["BoothPart"].Position, plrToReach, 2)
                                     -- Waits a bit before going away, so that the user can perhaps donate
-                                    task.wait(3)
+                                    task.wait(8)
                                 end
                             end
                         else
@@ -584,8 +603,10 @@ local function RunBot()
                         end
                         if plrRandom.Character and plrRandom.Character:IsDescendantOf(workspace) and LastPersonAskedMessage ~= plrRandom then
                             if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 250 then
-                                LastPersonAskedMessage = plrRandom
-                                MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                                if PlayersBeginningPos[plrRandom.UserId] ~= nil and (PlayersBeginningPos[plrRandom.UserId] - plrRandom.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 50 then
+                                    LastPersonAskedMessage = plrRandom
+                                    MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                                end
                             end
                         end
                     end
