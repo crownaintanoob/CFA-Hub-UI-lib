@@ -88,5 +88,5 @@ if highestdono >= minimum then
     )
 else
     --]]
-    shop()
+shop()
 --end
