@@ -216,6 +216,7 @@ local function RunBot()
             end)
         end)
 
+        -- Must be lowercase
         local WhitelistedAgreeMessages = {
             "ok",
             "alright",
@@ -229,10 +230,13 @@ local function RunBot()
             "of course",
             "for sure",
         }
-        -- Make every messages that are whitelisted as lowercase
-        for indexMsg, messageText in pairs(WhitelistedAgreeMessages) do
-            WhitelistedAgreeMessages[indexMsg] = string.lower(messageText)
-        end
+
+        -- Must be lowercase
+        local ListDeclineMessages = {
+            "sorry",
+            "no",
+            "nah",
+        }
 
         local BegMessagesList = {
             ["FollowMePleaseMessages"] = {
@@ -337,10 +341,24 @@ local function RunBot()
                             end
                             if IsJumping == false then
                                 local SkippedAmount = 0
+                                local PlayerDeclined = false
                                 repeat
                                     task.wait(.1)
                                     SkippedAmount = SkippedAmount + 1
                                     IfSittingJumpThen()
+                                    -- Check if plrToReach declined
+                                    if ChattedPlrsFuncList[plrToReach.UserId] ~= nil then
+                                        for _, vObjectMessages in pairs(ChattedPlrsFuncList[plrToReach.UserId]) do
+                                            for _, msgGot in pairs(ListDeclineMessages) do
+                                                if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
+                                                    print("Player declined to go to your stand !")
+                                                    PlayerDeclined = true
+                                                    CanStopLoop1 = true -- Cancel the repeat until loop
+                                                    break
+                                                end
+                                            end
+                                        end
+                                    end
                                 until idMode == 1 and plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
                                     (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - destination).Magnitude >=
                                         50 or
@@ -348,6 +366,10 @@ local function RunBot()
                                         (localP.Character:WaitForChild("HumanoidRootPart").Position - waypoints[i].Position).Magnitude <=
                                             7 or
                                     SkippedAmount >= (2 * 10)
+                                if not PlayerDeclined then
+                                    ShouldSkipFunc = true
+                                    break
+                                end
                                 if
                                     idMode == 1 and plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
                                         (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - destination).Magnitude >=
@@ -432,7 +454,7 @@ local function RunBot()
                                     for _, msgGot in pairs(WhitelistedAgreeMessages) do
                                         if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
                                             print("Player agreed to go to your stand !")
-                                            CanStopLoop1 = true -- Cancel the repeat until loop
+                                            CanStopLoop1 = true -- Cancel the repeat until loop ListDeclineMessages
                                             break
                                         end
                                     end
