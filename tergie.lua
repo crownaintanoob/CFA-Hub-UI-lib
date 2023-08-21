@@ -1,6 +1,8 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
     local function RunBot()
+        local MinimumPlayersInGame = 15
+        local MinsLast = 8
         print("Started execution attempt of Crown Bot.")
         if not workspace:WaitForChild("Map"):FindFirstChild("CrownBotCheckPermV") then
             print("Can execute, currently executing...")
@@ -25,8 +27,6 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             end
             
             coroutine.wrap(function()
-                local MinimumPlayersInGame = 15
-                local MinsLast = 8
                 while true do
                     if #Players:GetPlayers() < MinimumPlayersInGame then
                         ServerHopDo()
@@ -583,6 +583,9 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                     local AutoFarmToggle = true
                     while AutoFarmToggle do
                         task.wait(.1)
+                        if #Players:GetPlayers() < MinimumPlayersInGame then
+                            ServerHopDo()
+                        end
                         local boothGet = GetBooth()
                         if boothGet ~= nil and not boothGet["HasBooth"] then
                             ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ClaimBooth"):InvokeServer(
