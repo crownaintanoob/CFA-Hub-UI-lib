@@ -579,7 +579,8 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                 {Toggled = true, Description = false},
                 function(Value)
             --]]
-            local AutoFarmToggle = true
+            coroutine.wrap(function()
+                    local AutoFarmToggle = true
                     while AutoFarmToggle do
                         print("erwgherh")
                         task.wait(.1)
@@ -634,6 +635,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                             end
                         end
                     end
+                end)()
                 --[[
                 end
             )
