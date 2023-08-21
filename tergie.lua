@@ -14,14 +14,17 @@ local function RunBot()
         local JoinTime = tick()
         coroutine.wrap(function()
             local MinimumPlayersInGame = 7
-            local MinsLast = 8
+            local MinsLast = .05
             while true do
                 task.wait(MinsLast * 60)
                 if raisedTemp == 0 or #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) then
                     -- Server Hop
                     print("Server Hopping!")
                     raisedTemp = 0
-                    --queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
+                    game:GetService("RunService"):Stop() -- Roblox crash bypass
+                    if identifyexecutor() == "Fluxus" then
+                        --[[Needed for fluxus atm]]queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
+                    end
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
                 else
                     raisedTemp = 0
@@ -208,8 +211,8 @@ local function RunBot()
                 ChattedPlrsFuncList[plr.UserId] = {}
             end
             for indexGot, vObject in pairs(ChattedPlrsFuncList[plr.UserId]) do
-                -- Delete message from table if the message is 10 or more seconds old
-                if (tick() - vObject["TimeSent"]) >= 10 then
+                -- Delete message from table if the message is 4 or more seconds old
+                if (tick() - vObject["TimeSent"]) >= 4 then
                     table.remove(ChattedPlrsFuncList[plr.UserId], indexGot)
                 end
             end
@@ -251,6 +254,7 @@ local function RunBot()
         -- Must be lowercase
         local ListDeclineMessages = {
             "sorry",
+            "srry",
             "no",
             "nah",
         }
@@ -479,7 +483,7 @@ local function RunBot()
                         end
                         -- Give some time for the bot to "type" like a human
                         task.wait(5)
-                        if Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 65 then
+                        if Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 55 then
                             SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ?")
                             local StartingTimeWait1 = tick()
                             local CanStopLoop1 = false
@@ -599,10 +603,10 @@ local function RunBot()
                         end
                         local plrRandom
                         if #ListPlayersNotNearStand > 1 then
-                            print("Found player away from stand (1)")
+                            --print("Found player away from stand (1)")
                             plrRandom = ListPlayersNotNearStand[math.random(1, #ListPlayersNotNearStand)]
                         elseif #ListPlayersNotNearStand == 1 then
-                            print("Found player away from stand (2)")
+                            --print("Found player away from stand (2)")
                             plrRandom = ListPlayersNotNearStand[1]
                         elseif #ListPlayersNotNearStand <= 0 then
                             print("did not find a player away from their stand, so getting random player")
