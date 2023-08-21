@@ -9,7 +9,7 @@ end
 
 local GUIDs = {}
 local maxPlayers = 0
-local pagesToSearch = 2500
+local pagesToSearch = 100
 function Search()
     local Http =
         game:GetService("HttpService"):JSONDecode(
