@@ -25,7 +25,7 @@ local function RunBot()
         
         coroutine.wrap(function()
             local MinimumPlayersInGame = 15
-            local MinsLast = 
+            local MinsLast = 8
             while true do
                 if #Players:GetPlayers() < MinimumPlayersInGame then
                     ServerHopDo()
