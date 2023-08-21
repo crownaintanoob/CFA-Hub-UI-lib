@@ -7,14 +7,6 @@ if not game.IsLoaded then
 end
 --wait(.5)
 
---writefile("MinimumDonation.txt",tostring(minimum))
-
-for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-    repeat
-        wait()
-    until v:FindFirstChild("leaderstats")
-end
-
 local GUIDs = {}
 local maxPlayers = 0
 local pagesToSearch = 2500
