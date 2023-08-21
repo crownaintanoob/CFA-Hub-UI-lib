@@ -28,7 +28,7 @@ function Search()
     for i = 1, pagesToSearch do
         if Http ~= nil and Http.data ~= nil then
             for _, v in pairs(Http.data) do
-                if v.playing ~= v.maxPlayers and v.id ~= game.JobId then
+                if v.playing ~= v.maxPlayers and v.id ~= game.JobId and v.playing >= 15 then
                     maxPlayers = v.maxPlayers
                     table.insert(GUIDs, {id = v.id, users = v.playing})
                 end
