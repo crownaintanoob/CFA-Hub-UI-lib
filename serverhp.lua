@@ -1,6 +1,6 @@
 local PlsDonateId = 8737602449
 local WaitingPlaceId = 14195425876
-function tp()
+local function tp()
     local suc =
         pcall(
         function()
