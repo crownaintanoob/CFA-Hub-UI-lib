@@ -22,7 +22,7 @@ function Search()
     local Http =
         game:GetService("HttpService"):JSONDecode(
         game:HttpGet(
-            "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100&cursor="
+            "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100&cursor="
         )
     )
     for i = 1, pagesToSearch do
