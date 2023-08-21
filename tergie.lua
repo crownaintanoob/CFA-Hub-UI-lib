@@ -12,20 +12,27 @@ local function RunBot()
         task.wait(2)
         local raisedTemp = 0
         local JoinTime = tick()
+        local function ServerHopDo()
+            -- Server Hop
+            print("Server Hopping!")
+            raisedTemp = 0
+            game:GetService("RunService"):Stop() -- Roblox crash bypass
+            if identifyexecutor() == "Fluxus" then
+                --[[Needed for fluxus atm]]queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
+            end
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
+        end
+        
         coroutine.wrap(function()
-            local MinimumPlayersInGame = 7
-            local MinsLast = 8
+            local MinimumPlayersInGame = 15
+            local MinsLast = 
             while true do
+                if #Players:GetPlayers() < MinimumPlayersInGame then
+                    ServerHopDo()
+                end
                 task.wait(MinsLast * 60)
                 if raisedTemp == 0 or #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) then
-                    -- Server Hop
-                    print("Server Hopping!")
-                    raisedTemp = 0
-                    game:GetService("RunService"):Stop() -- Roblox crash bypass
-                    if identifyexecutor() == "Fluxus" then
-                        --[[Needed for fluxus atm]]queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
-                    end
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
+                    ServerHopDo()
                 else
                     raisedTemp = 0
                 end
@@ -37,7 +44,7 @@ local function RunBot()
             coroutine.wrap(function()
                 plr.CharacterAdded:Connect(function(char)
                     repeat task.wait() until char
-                    task.wait(3)
+                    task.wait(1)
                     PlayersBeginningPos[plr.UserId] = char:WaitForChild("HumanoidRootPart").Position
                 end)
                 if Players:FindFirstChild(plr.Name) and plr.Character and plr.Character:IsDescendantOf(workspace) then
@@ -75,7 +82,7 @@ local function RunBot()
             local HowMuchDonatedAtOnce = newValue - oldDonation
             oldDonation = newValue
             task.wait(4)
-            SendMessageInChat("Thanks for the donation!")
+            SendMessageInChat(donationsThanksList[math.random(1, #donationsThanksList)])
             raisedTemp = raisedTemp + HowMuchDonatedAtOnce
         end)
         -- Anti AFK
@@ -213,7 +220,7 @@ local function RunBot()
             for indexGot, vObject in pairs(ChattedPlrsFuncList[plr.UserId]) do
                 -- Delete message from table if the message is 4 or more seconds old
                 if (tick() - vObject["TimeSent"]) >= 4 then
-                    table.remove(ChattedPlrsFuncList[plr.UserId], indexGot)
+                    ChattedPlrsFuncList[plr.UserId][indexGot] = nil
                 end
             end
             table.insert(ChattedPlrsFuncList[plr.UserId], {
@@ -243,7 +250,7 @@ local function RunBot()
             "fine",
             "all right",
             "go",
-            "stand",
+            "booth",
             "ye", -- this will also work for other words, such as "yep", "yes"
             "sure",
             "ofcourse",
@@ -263,15 +270,15 @@ local function RunBot()
             ["FollowMePleaseMessages"] = {
                 "follow me please",
                 "can you please follow me",
-                "come to my stand",
-                "cmon follow me",
+                "come to my booth",
+                "follow me to my booth",
                 "please follow me",
             },
-            ["FollowMeToMyStand"] = {
-                "follow me to my stand",
-                "follow me, I'll show you my stand",
-                "I'll show you my stand, follow me",
-                "I'll show you my stand, come",
+            ["FollowMeToMybooth"] = {
+                "follow me to my booth",
+                "follow me, I'll show you my booth",
+                "I'll show you my booth, follow me",
+                "I'll show you my booth, come",
             }
         }
 
@@ -383,7 +390,7 @@ local function RunBot()
                                         for _, vObjectMessages in pairs(ChattedPlrsFuncList[plrToReach.UserId]) do
                                             for _, msgGot in pairs(ListDeclineMessages) do
                                                 if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
-                                                    print("Player declined to go to your stand !")
+                                                    print("Player declined to go to your booth !")
                                                     PlayerDeclined = true
                                                     break
                                                 end
@@ -493,7 +500,7 @@ local function RunBot()
                                     for _, vObjectMessages in pairs(ChattedPlrsFuncList[plrToReach.UserId]) do
                                         for _, msgGot in pairs(WhitelistedAgreeMessages) do
                                             if string.find(string.lower(vObjectMessages["Msg"]), msgGot) then
-                                                print("Player agreed to go to your stand !")
+                                                print("Player agreed to go to your booth !")
                                                 CanStopLoop1 = true
                                                 break
                                             end
@@ -506,10 +513,10 @@ local function RunBot()
                                 return
                             end
                             if CanStopLoop1 then
-                                -- Player has agreed to come to your stand, so waiting 3 seconds
+                                -- Player has agreed to come to your booth, so waiting 3 seconds
                                 task.wait(3)
                             end
-                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMyStand"][math.random(1, #BegMessagesList["FollowMeToMyStand"])])
+                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMybooth"][math.random(1, #BegMessagesList["FollowMeToMybooth"])])
                             local boothGet = GetBooth()
                             if boothGet ~= nil and boothGet["HasBooth"] then
                                 if boothGet["BoothPart"] then
@@ -573,18 +580,18 @@ local function RunBot()
                     task.wait(.1)
                     local boothGet = GetBooth()
                     if boothGet ~= nil and not boothGet["HasBooth"] then
-                        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ClaimBooth"):InvokeServer --[[Booth Slot]](
+                        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ClaimBooth"):InvokeServer(
                             boothGet["BoothSlot"]
                         )
-                        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("SetBoothText"):FireServer --[[Booth Text]](
-                            "Donate BRO!" --[[BoothModel Name]],
+                        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("SetBoothText"):FireServer(
+                            '<font face="DenkOne"><stroke color="#FFFFFF" thickness="2"><font color="#008229">Donations are highly appreciated, thanks to everyone who donates !</font></stroke></font>',
                             "booth"
                         )
                         ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("SetDonatedVisibility"):FireServer(--[[Whether players can see our donated in leaderstats]]false) -- Anonymous mode for donated
                     else
                         -- Localplayer has a booth
                         local PlayersList = Players:GetPlayers()
-                        local ListPlayersNotNearStand = {}
+                        local ListPlayersNotNearbooth = {}
                         for _, vPlr in pairs(PlayersList) do
                             if vPlr.UserId ~= localP.UserId then
                                 for _, boothInteractionPart in pairs(workspace:WaitForChild("BoothInteractions"):GetChildren()) do
@@ -593,7 +600,7 @@ local function RunBot()
                                         if OwnerBooth == vPlr.UserId then
                                             if vPlr.Character and vPlr.Character:IsDescendantOf(workspace) then
                                                 if (vPlr.Character:WaitForChild("HumanoidRootPart").Position - boothInteractionPart.Position).Magnitude >= 50 then
-                                                    table.insert(ListPlayersNotNearStand, vPlr)
+                                                    table.insert(ListPlayersNotNearbooth, vPlr)
                                                 end
                                             end
                                         end
@@ -602,19 +609,19 @@ local function RunBot()
                             end
                         end
                         local plrRandom
-                        if #ListPlayersNotNearStand > 1 then
-                            --print("Found player away from stand (1)")
-                            plrRandom = ListPlayersNotNearStand[math.random(1, #ListPlayersNotNearStand)]
-                        elseif #ListPlayersNotNearStand == 1 then
-                            --print("Found player away from stand (2)")
-                            plrRandom = ListPlayersNotNearStand[1]
-                        elseif #ListPlayersNotNearStand <= 0 then
-                            print("did not find a player away from their stand, so getting random player")
+                        if #ListPlayersNotNearbooth > 1 then
+                            --print("Found player away from booth (1)")
+                            plrRandom = ListPlayersNotNearbooth[math.random(1, #ListPlayersNotNearbooth)]
+                        elseif #ListPlayersNotNearbooth == 1 then
+                            --print("Found player away from booth (2)")
+                            plrRandom = ListPlayersNotNearbooth[1]
+                        elseif #ListPlayersNotNearbooth <= 0 then
+                            print("did not find a player away from their booth, so getting random player")
                             plrRandom = PlayersList[math.random(1, #PlayersList)]
                         end
                         if plrRandom.Character and plrRandom.Character:IsDescendantOf(workspace) and LastPersonAskedMessage ~= plrRandom then
                             if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 250 then
-                                if PlayersBeginningPos[plrRandom.UserId] ~= nil and (PlayersBeginningPos[plrRandom.UserId] - plrRandom.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 50 then
+                                if PlayersBeginningPos[plrRandom.UserId] ~= nil and (PlayersBeginningPos[plrRandom.UserId] - plrRandom.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 40 then
                                     LastPersonAskedMessage = plrRandom
                                     MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
                                 end
