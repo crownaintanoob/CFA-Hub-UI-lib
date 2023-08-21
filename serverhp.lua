@@ -63,20 +63,20 @@ function tp()
     local suc =
         pcall(
         function()
-            game:GetService("TeleportService"):TeleportToPlaceInstance(
+            game:GetService("TeleportService"):Teleport(
                 game.PlaceId,
-                highest.id,
-                game.Players.LocalPlayer
+                --[[highest.id,
+                game.Players.LocalPlayer]]
             )
         end
     )
     if not suc then
-        Search()
-        findHighest()
+        --Search()
+        --findHighest()
         tp()
     end
 end
 
-Search()
-findHighest()
+--Search()
+--findHighest()
 tp()
