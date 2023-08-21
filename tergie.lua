@@ -573,14 +573,13 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
 
             local Section1 = MainPage:CreateSection("Main Section")
 
-            local AutoFarmToggle = true
             local LastPersonAskedMessage = nil
             Section1:CreateToggle(
                 "Auto farm",
                 {Toggled = true, Description = false},
                 function(Value)
             --]]
-                    AutoFarmToggle = Value
+            local AutoFarmToggle = true
                     while AutoFarmToggle do
                         task.wait(.1)
                         local boothGet = GetBooth()
