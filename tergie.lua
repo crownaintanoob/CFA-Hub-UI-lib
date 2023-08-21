@@ -25,7 +25,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             
             coroutine.wrap(function()
                 local MinimumPlayersInGame = 15
-                local MinsLast = 1
+                local MinsLast = .01
                 while true do
                     if #Players:GetPlayers() < MinimumPlayersInGame then
                         ServerHopDo()
