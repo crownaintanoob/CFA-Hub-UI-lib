@@ -1,3 +1,4 @@
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
     local function RunBot()
         print("Started execution attempt of Crown Bot.")
@@ -25,7 +26,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             
             coroutine.wrap(function()
                 local MinimumPlayersInGame = 15
-                local MinsLast = .01
+                local MinsLast = 8
                 while true do
                     if #Players:GetPlayers() < MinimumPlayersInGame then
                         ServerHopDo()
