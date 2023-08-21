@@ -563,7 +563,8 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                 end)()
             end
             NoclipLoop()
-            -- UI
+            -- UI (Disabled temporarily)
+            --[[
             local uilibrary =
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/source.lua"))()
             local WindowGot = uilibrary:CreateWindow("Crown UI", "PLS DONATE", true)
@@ -578,6 +579,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                 "Auto farm",
                 {Toggled = true, Description = false},
                 function(Value)
+            --]]
                     AutoFarmToggle = Value
                     while AutoFarmToggle do
                         task.wait(.1)
@@ -632,8 +634,10 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                             end
                         end
                     end
+                --[[
                 end
             )
+            --]]
         else
             warn("Alreadry executed the Crown Bot!")
         end
