@@ -5,7 +5,8 @@ local function tp()
         pcall(
         function()
             game:GetService("TeleportService"):Teleport(
-                if game.PlaceId == PlsDonateId then WaitingPlaceId elseif game.PlaceId == WaitingPlaceId then PlsDonateId else PlsDonateId
+                if game.PlaceId == PlsDonateId then WaitingPlaceId elseif game.PlaceId == WaitingPlaceId then PlsDonateId else PlsDonateId,
+                    game:GetService("Players").LocalPlayer
             )
         end
     )
