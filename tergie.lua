@@ -19,7 +19,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                 print("Server Hopping!")
                 raisedTemp = 0
                 if identifyexecutor() == "Fluxus" then
-                    --[[Needed for fluxus atm]]queue_on_teleport('task.wait(5)\nloadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()\nqueue_on_teleport(loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))())\n')
+                    --[[Needed for fluxus atm]]queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()')
                 end
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
             end
