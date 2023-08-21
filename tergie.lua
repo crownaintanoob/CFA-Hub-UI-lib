@@ -581,6 +581,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             --]]
             local AutoFarmToggle = true
                     while AutoFarmToggle do
+                        print("erwgherh")
                         task.wait(.1)
                         local boothGet = GetBooth()
                         if boothGet ~= nil and not boothGet["HasBooth"] then
