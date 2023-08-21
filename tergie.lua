@@ -25,14 +25,16 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             
             coroutine.wrap(function()
                 local MinimumPlayersInGame = 15
-                local MinsLast = .05
+                local MinsLast = 1
                 while true do
                     if #Players:GetPlayers() < MinimumPlayersInGame then
                         ServerHopDo()
+                        break
                     end
                     task.wait(MinsLast * 60)
                     if raisedTemp == 0 or #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) then
                         ServerHopDo()
+                        break
                     else
                         raisedTemp = 0
                     end
@@ -44,7 +46,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                 coroutine.wrap(function()
                     plr.CharacterAdded:Connect(function(char)
                         repeat task.wait() until char
-                        task.wait(1)
+                        task.wait(3)
                         PlayersBeginningPos[plr.UserId] = char:WaitForChild("HumanoidRootPart").Position
                     end)
                     if Players:FindFirstChild(plr.Name) and plr.Character and plr.Character:IsDescendantOf(workspace) then
