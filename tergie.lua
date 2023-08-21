@@ -11,7 +11,9 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
             local Players = game:GetService("Players")
             local localP = Players.LocalPlayer
             repeat task.wait(.1) until localP and localP.Character and localP.Character:IsDescendantOf(workspace)
+            print("orgoeoro213131")
             task.wait(2)
+            print("erherhtrjhr5455")
             local raisedTemp = 0
             local JoinTime = tick()
             local function ServerHopDo()
