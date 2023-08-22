@@ -573,12 +573,12 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
 
             local Section1 = MainPage:CreateSection("Main Section")
 
-            local LastPersonAskedMessage = nil
             Section1:CreateToggle(
                 "Auto farm",
                 {Toggled = true, Description = false},
                 function(Value)
             --]]
+            local LastPersonAskedMessage = nil
             coroutine.wrap(function()
                     local AutoFarmToggle = true
                     while AutoFarmToggle do
@@ -628,7 +628,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                                 plrRandom = PlayersList[math.random(1, #PlayersList)]
                             end
                             if plrRandom.Character and plrRandom.Character:IsDescendantOf(workspace) and LastPersonAskedMessage ~= plrRandom then
-                                if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 250 then
+                                if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 400 then
                                     if PlayersBeginningPos[plrRandom.UserId] ~= nil and (PlayersBeginningPos[plrRandom.UserId] - plrRandom.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 40 then
                                         LastPersonAskedMessage = plrRandom
                                         MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
