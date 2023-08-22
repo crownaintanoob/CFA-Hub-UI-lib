@@ -1,7 +1,7 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
     local MinimumPlayersInGame = 12
-    local MinsLast = 8
+    local MinsLast = 6
     print("Started execution attempt of Crown Bot.")
     if not workspace:WaitForChild("Map"):FindFirstChild("CrownBotCheckPermV") then
         print("Can execute, currently executing...")
