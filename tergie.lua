@@ -37,8 +37,11 @@ local function RunBot()
                 local ShouldBreakWhileLoop = false
                 for _, vPlr in pairs(Players:GetPlayers()) do
                     if vPlr.UserId ~= localP.UserId then
+                        print("ergerg")
                         if ListOfBotsIds[vPlr.UserId] then
+                            print("sgerger")
                             ShouldBreakWhileLoop = true
+                            print("bot is in server! server hopping because of that!")
                             ServerHopDo()
                             break
                         end
