@@ -33,7 +33,7 @@ if game.PlaceId == 8737602449 then -- Pls Donate's PlaceId
                         break
                     end
                     task.wait(MinsLast * 60)
-                    if raisedTemp == 0 or #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) then
+                    if #Players:GetPlayers() < MinimumPlayersInGame or (tick() - JoinTime) >= (MinsLast * 60) and raisedTemp == 0 then
                         ServerHopDo()
                         break
                     else
