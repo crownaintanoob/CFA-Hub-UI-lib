@@ -1,7 +1,10 @@
+_G.WebhookURL = "https://discord.com/api/webhooks/1143659495558484089/zhzY2E1JHbVhyo5WHIQ9aVz1fUz7p_rB-bGH2Q3OHlWywWoyK5Q2tXmarY4GfVjTR6JD"
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
+    local HttpRequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
+    local HttpService = game:GetService("HttpService")
     -- Rejoin when kicked for whatever reason
-    getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
+    game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
         if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
             game:GetService("TeleportService"):Teleport(game.PlaceId)
         end
@@ -88,6 +91,20 @@ local function RunBot()
         local oldDonation = localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value
         localP:WaitForChild("leaderstats"):WaitForChild("Raised").Changed:Connect(function(newValue)
             local HowMuchDonatedAtOnce = newValue - oldDonation
+            pcall(function()
+                HttpRequest(
+                    {
+                        Url = _G.WebhookURL,
+                        Method = "POST",
+                        Headers = {
+                            ["Content-Type"] = "application/json"  -- When sending JSON, set this!
+                        },
+                        Body = HttpService:JSONEncode({
+                            ["username"] = localP.Name, -- Bot name
+                            ["content"] =  tostring(HowMuchDonatedAtOnce) .. " Robux | Raised: " .. tostring(localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value)
+                        })
+                    })
+            end)
             oldDonation = newValue
             task.wait(4)
             SendMessageInChat(donationsThanksList[math.random(1, #donationsThanksList)])
