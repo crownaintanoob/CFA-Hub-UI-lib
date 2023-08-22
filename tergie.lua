@@ -56,7 +56,7 @@ local function RunBot()
         end
 
         local function SpeedUpPlayer(char)
-            char:WaitForChild("Humanoid").WalkSpeed = 20
+            char:WaitForChild("Humanoid").WalkSpeed = 18
         end
 
         if localP.Character and localP.Character:IsDescendantOf(workspace) then
@@ -422,7 +422,7 @@ local function RunBot()
                                 if boothGet ~= nil and boothGet["HasBooth"] then
                                     if boothGet["BoothPart"] then
                                         if plrToReach ~= nil and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and
-                                        (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude <= 30 then
+                                        (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - boothGet["BoothPart"].Position).Magnitude <= 50 then
                                             if localP.Character and localP.Character:IsDescendantOf(workspace) then
                                                 -- Cancel Humanoid MoveTo
                                                 humanoid:MoveTo(localP.Character:WaitForChild("HumanoidRootPart").Position)
@@ -465,7 +465,7 @@ local function RunBot()
                                                 break
                                             else
                                                 -- Waits a bit before going away, so that the user can perhaps donate
-                                                task.wait(8)
+                                                task.wait(12)
                                             end
                                         end
                                     end
@@ -524,7 +524,7 @@ local function RunBot()
                                 if boothGet["BoothPart"] then
                                     MoveToDestinationAI(boothGet["BoothPart"].Position, plrToReach, 2)
                                     -- Waits a bit before going away, so that the user can perhaps donate
-                                    task.wait(8)
+                                    task.wait(12)
                                 end
                             end
                         else
