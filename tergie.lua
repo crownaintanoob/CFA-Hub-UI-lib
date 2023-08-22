@@ -1,7 +1,7 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
     local MinimumPlayersInGame = 12
-    local MinsLast = 8
+    local MinsLast = 5
     print("Started execution attempt of Crown Bot.")
     if not workspace:WaitForChild("Map"):FindFirstChild("CrownBotCheckPermV") then
         print("Can execute, currently executing...")
@@ -577,6 +577,7 @@ local function RunBot()
             {Toggled = true, Description = false},
             function(Value)
         --]]
+        local PreviouslyBeggedPeopleInServers = {}
         local LastPersonAskedMessage = nil
         coroutine.wrap(function()
                 local AutoFarmToggle = true
@@ -629,8 +630,11 @@ local function RunBot()
                         if plrRandom.Character and plrRandom.Character:IsDescendantOf(workspace) and LastPersonAskedMessage ~= plrRandom then
                             if (plrRandom.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 400 then
                                 if PlayersBeginningPos[plrRandom.UserId] ~= nil and (PlayersBeginningPos[plrRandom.UserId] - plrRandom.Character:WaitForChild("HumanoidRootPart").Position).Magnitude >= 40 then
-                                    LastPersonAskedMessage = plrRandom
-                                    MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                                    if PreviouslyBeggedPeopleInServers[plrRandom.UserId] == nil then
+                                        LastPersonAskedMessage = plrRandom
+                                        PreviouslyBeggedPeopleInServers[plrRandom.UserId] = true
+                                        MoveToDestinationAI(plrRandom.Character:WaitForChild("HumanoidRootPart").Position, plrRandom, 1)
+                                    end
                                 end
                             end
                         end
