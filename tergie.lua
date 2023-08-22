@@ -1,4 +1,4 @@
-_G.WebhookURL = "https://discord.com/api/webhooks/1143659495558484089/zhzY2E1JHbVhyo5WHIQ9aVz1fUz7p_rB-bGH2Q3OHlWywWoyK5Q2tXmarY4GfVjTR6JD"
+_G.WebhookURL = ""
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
     local HttpRequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
