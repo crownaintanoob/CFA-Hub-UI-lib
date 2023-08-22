@@ -1,8 +1,10 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
-    -- Rejoin when teleport fails, or any other error occurs
-    game:GetService("GuiService").ErrorMessageChanged:Connect(function()
-        game:GetService("TeleportService"):Teleport(game.PlaceId)
+    -- Rejoin when kicked for whatever reason
+    getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
+        if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
+            game:GetService("TeleportService"):Teleport(game.PlaceId)
+        end
     end)
     local MinimumPlayersInGame = 12
     local MinsLast = 5
