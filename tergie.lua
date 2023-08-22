@@ -1,5 +1,9 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
+    -- Rejoin when teleport fails, or any other error occurs
+    game:GetService("GuiService").ErrorMessageChanged:Connect(function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId)
+    end)
     local MinimumPlayersInGame = 12
     local MinsLast = 5
     print("Started execution attempt of Crown Bot.")
