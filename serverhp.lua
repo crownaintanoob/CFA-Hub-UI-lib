@@ -34,7 +34,7 @@ function Search()
                 end
             end
         end
-        if Http.nextPageCursor ~= null then
+        if Http.nextPageCursor ~= nil then
             Http =
                 game:GetService("HttpService"):JSONDecode(
                 game:HttpGet(
