@@ -1,5 +1,10 @@
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/tergie.lua"))()
 local function RunBot()
+    local ListOfBotsIds = {
+        4936791167, -- KrawkLig
+        4947753544, -- Polar_Smuril2
+        4948270944, -- LireEiLer
+    }
     local MinimumPlayersInGame = 15
     local MinsLast = 8
     print("Started execution attempt of Crown Bot.")
@@ -25,6 +30,26 @@ local function RunBot()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/crownaintanoob/CFA-Hub-UI-lib/main/serverhp.lua"))()
         end
         
+        -- Serverhop if your bots are in the bot's server
+        coroutine.wrap(function()
+            while true do
+                task.wait(5)
+                local ShouldBreakWhileLoop = false
+                for _, vPlr in pairs(Players:GetPlayers()) do
+                    if vPlr.UserId ~= localP.UserId then
+                        if ListOfBotsIds[vPlr.UserId] then
+                            ShouldBreakWhileLoop = true
+                            ServerHopDo()
+                            break
+                        end
+                    end
+                end
+                if ShouldBreakWhileLoop then
+                    break
+                end
+            end
+        end)()
+
         coroutine.wrap(function()
             while true do
                 if #Players:GetPlayers() < MinimumPlayersInGame then
