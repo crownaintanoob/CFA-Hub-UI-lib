@@ -428,7 +428,7 @@ local function RunBot()
                                                 humanoid:MoveTo(localP.Character:WaitForChild("HumanoidRootPart").Position)
                                             end
                                             task.wait(5)
-                                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", donate please")
+                                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)):gsub("_", " ") .. ", donate please")
                                             local startWaitingTime = tick()
                                             local boothGet = GetBooth()
                                             if boothGet ~= nil and boothGet["HasBooth"] then
@@ -454,7 +454,7 @@ local function RunBot()
                                         break
                                     end
                                     lastMessageFollowMe = tick()
-                                    SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(3, 5)) .. ", " .. BegMessagesList["FollowMePleaseMessages"][math.random(1, #BegMessagesList["FollowMePleaseMessages"])])
+                                    SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(3, 5)):gsub("_", " ") .. ", " .. BegMessagesList["FollowMePleaseMessages"][math.random(1, #BegMessagesList["FollowMePleaseMessages"])])
                                     task.wait(2)
                                     local boothGet = GetBooth()
                                     if boothGet ~= nil and boothGet["HasBooth"] then
@@ -493,7 +493,7 @@ local function RunBot()
                         -- Give some time for the bot to "type" like a human
                         task.wait(5)
                         if Players:FindFirstChild(plrToReach.Name) and plrToReach.Character and plrToReach.Character:IsDescendantOf(workspace) and (plrToReach.Character:WaitForChild("HumanoidRootPart").Position - localP.Character:WaitForChild("HumanoidRootPart").Position).Magnitude <= 55 then
-                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)) .. ", can you please donate to me ?")
+                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 8)):gsub("_", " ") .. ", can you please donate to me ?")
                             local StartingTimeWait1 = tick()
                             local CanStopLoop1 = false
                             repeat
@@ -518,7 +518,7 @@ local function RunBot()
                                 -- Player has agreed to come to your booth, so waiting 3 seconds
                                 task.wait(3)
                             end
-                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)) .. ", " .. BegMessagesList["FollowMeToMybooth"][math.random(1, #BegMessagesList["FollowMeToMybooth"])])
+                            SendMessageInChat(string.sub(string.lower(plrToReach.DisplayName), 1, math.random(4, 6)):gsub("_", " ") .. ", " .. BegMessagesList["FollowMeToMybooth"][math.random(1, #BegMessagesList["FollowMeToMybooth"])])
                             local boothGet = GetBooth()
                             if boothGet ~= nil and boothGet["HasBooth"] then
                                 if boothGet["BoothPart"] then
