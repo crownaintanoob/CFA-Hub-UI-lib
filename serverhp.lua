@@ -17,12 +17,12 @@ end
 
 local GUIDs = {}
 local maxPlayers = 0
-local pagesToSearch = 1500
+local pagesToSearch = 100
 function Search()
     local Http =
         game:GetService("HttpService"):JSONDecode(
         game:HttpGet(
-            "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100&cursor="
+            "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100&cursor="
         )
     )
     for i = 1, pagesToSearch do
@@ -39,7 +39,7 @@ function Search()
                 game:GetService("HttpService"):JSONDecode(
                 game:HttpGet(
                     "https://games.roblox.com/v1/games/" ..
-                        game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100&cursor=" .. Http.nextPageCursor
+                        game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. Http.nextPageCursor
                 )
             )
         else
