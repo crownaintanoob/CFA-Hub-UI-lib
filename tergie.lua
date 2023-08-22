@@ -101,7 +101,7 @@ local function RunBot()
                         },
                         Body = HttpService:JSONEncode({
                             ["username"] = localP.Name, -- Bot name
-                            ["content"] =  tostring(HowMuchDonatedAtOnce) .. " Robux | Raised: " .. tostring(localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value)
+                            ["content"] = tostring(HowMuchDonatedAtOnce) .. " Robux | Raised: " .. tostring(localP:WaitForChild("leaderstats"):WaitForChild("Raised").Value)
                         })
                     })
             end)
